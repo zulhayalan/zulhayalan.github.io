@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zulhay Alan — Impact Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a25;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --text-dim: #8888a0;
+    --accent: #6366f1;
+    --accent-glow: rgba(99,102,241,0.15);
+    --green: #10b981;
+    --amber: #f59e0b;
+    --cyan: #06b6d4;
+    --rose: #f43f5e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    padding: 80px 24px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header h1 {
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .header-subtitle {
+    font-size: 18px;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+
+  .header-contact {
+    text-align: right;
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 2;
+  }
+
+  .header-contact a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* Impact stats banner */
+  .stats-banner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 48px;
+  }
+
+  .stat-cell {
+    background: var(--surface);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s ease;
+  }
+
+  .stat-number.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stat-number.green { color: var(--green); }
+  .stat-number.amber { color: var(--amber); }
+  .stat-number.cyan { color: var(--cyan); }
+  .stat-number.accent { color: var(--accent); }
+  .stat-number.rose { color: var(--rose); }
+
+  .stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+  }
+
+  /* Sections */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .section-header h2 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+
+  .section-header .line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Experience cards */
+  .exp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 24px;
+    transition: border-color 0.3s;
+  }
+
+  .exp-card:hover {
+    border-color: var(--accent);
+  }
+
+  .exp-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .exp-company {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .exp-title {
+    font-size: 15px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  .exp-dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+    padding: 6px 12px;
+    background: var(--surface-2);
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  /* Metric pills inline */
+  .exp-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .metric-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .metric-pill.green { background: rgba(16,185,129,0.1); color: var(--green); border: 1px solid rgba(16,185,129,0.2); }
+  .metric-pill.amber { background: rgba(245,158,11,0.1); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+  .metric-pill.cyan { background: rgba(6,182,212,0.1); color: var(--cyan); border: 1px solid rgba(6,182,212,0.2); }
+  .metric-pill.accent { background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(99,102,241,0.2); }
+  .metric-pill.rose { background: rgba(244,63,94,0.1); color: var(--rose); border: 1px solid rgba(244,63,94,0.2); }
+
+  .metric-pill .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+  }
+
+  .exp-bullets {
+    list-style: none;
+  }
+
+  .exp-bullets li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-dim);
+    padding: 6px 0 6px 20px;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Education */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .edu-degree {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .edu-school {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .edu-field {
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  /* Portfolio tags */
+  .portfolio-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .portfolio-tag {
+    padding: 12px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+
+  .portfolio-tag:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  .portfolio-tag .company {
+    color: var(--text-dim);
+    font-size: 12px;
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 48px;
+    color: var(--text-dim);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .header { grid-template-columns: 1fr; }
+    .header-contact { text-align: left; }
+    .stats-banner { grid-template-columns: repeat(2, 1fr); }
+    .edu-grid { grid-template-columns: 1fr; }
+    .exp-top { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Zulhay Alan</h1>
+    <div class="header-subtitle">Product Manager · 10+ Years · Fintech, Healthcare, AI</div>
+  </div>
+  <div class="header-contact">
+    415-471-5726<br>
+    <a href="mailto:zulhayalan@gmail.com">zulhayalan@gmail.com</a><br>
+    <a href="https://www.linkedin.com/in/zulhayalan/">LinkedIn</a>
+  </div>
+</div>
+
+<div class="stats-banner">
+  <div class="stat-cell">
+    <div class="stat-number green" data-target="12">0</div>
+    <div class="stat-label">× User Activation</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number amber" data-target="60">0</div>
+    <div class="stat-label">% Digital Payment Adoption</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number cyan" data-target="80">0</div>
+    <div class="stat-label">% Faster Workflow Launch</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number accent" data-target="30">0</div>
+    <div class="stat-label">+ APIs/SDKs Shipped</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number rose" data-target="2">0</div>
+    <div class="stat-label">M+ Users Unified</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <h2>Portfolio</h2>
+    <div class="line"></div>
+  </div>
+  <div class="portfolio-row">
+    <div class="portfolio-tag">Agentic AI CX Automation<span class="company">Ushur</span></div>
+    <div class="portfolio-tag">Digital Payments (ACH, Debit, Credit, Wallet)<span class="company">Oportun</span></div>
+    <div class="portfolio-tag">AI-Personalized Payment Plans<span class="company">Oportun</span></div>
+    <div class="portfolio-tag">Financial Products Marketplace<span class="company">Oportun</span></div>
+    <div class="portfolio-tag">Developer Portal & 30+ APIs<span class="company">Wells Fargo</span></div>
+    <div class="portfolio-tag">Identity & Auth (IAM, SSO, MFA, OAuth)<span class="company">Multiple</span></div>
+    <div class="portfolio-tag">Video Streaming PaaS<span class="company">Vucos</span></div>
+    <div class="portfolio-tag">Conversational AI Chatbot<span class="company">Oportun</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <h2>Education</h2>
+    <div class="line"></div>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">MBA</div>
+      <div class="edu-school">San Diego State University</div>
+      <div class="edu-field">Master of Business Administration</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">B.S. Engineering</div>
+      <div class="edu-school">Istanbul Technical University</div>
+      <div class="edu-field">Electrical & Electronics Engineering</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <h2>Experience</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="exp-card">
+    <div class="exp-top">
+      <div>
+        <div class="exp-company">Ushur</div>
+        <div class="exp-title">Sr. Product Manager · Santa Clara, CA</div>
+      </div>
+      <div class="exp-dates">05.2025 – 01.2026</div>
+    </div>
+    <div class="exp-metrics">
+      <span class="metric-pill cyan"><span class="num">80%</span> faster workflow launch</span>
+      <span class="metric-pill green"><span class="num">30%</span> activation increase</span>
+      <span class="metric-pill accent"><span class="num">30+</span> multi-tenant clients</span>
+    </div>
+    <ul class="exp-bullets">
+      <li>Owned two core products, Invisible App and Ushur Hub, supporting regulated enterprise workflows (deterministic and agentic) across healthcare, insurance, and financial services.</li>
+      <li>Delivered Member 360 app — agentic AI dashboard generation from disparate data via natural language with human-in-the-loop editing. Drove pipeline expansion in commercial negotiations.</li>
+      <li>Designed prompt-driven branding automation applying client brand identity across end-user workflows, scaling to 30+ clients.</li>
+      <li>Led enterprise SSO integration with client-facing APIs for just-in-time provisioning. Streamlined for multi-client scaling.</li>
+      <li>Defined strategy, positioning, GTM. Presented to CEO/CTO. Managed engineering pods through scoping, sequencing, delivery.</li>
+    </ul>
+  </div>
+
+  <div class="exp-card">
+    <div class="exp-top">
+      <div>
+        <div class="exp-company">Freelance Consultant</div>
+        <div class="exp-title">Sr. Product Manager · Remote</div>
+      </div>
+      <div class="exp-dates">03.2023 – 05.2025</div>
+    </div>
+    <ul class="exp-bullets">
+      <li>Partnered with Maxitech founders on Entrapeer, an agentic AI PaaS for market research. Developed strategy and led business development.</li>
+      <li>Studied AI in business and ethical impacts through Stanford University courses.</li>
+    </ul>
+  </div>
+
+  <div class="exp-card">
+    <div class="exp-top">
+      <div>
+        <div class="exp-company">Oportun</div>
+        <div class="exp-title">Sr. Product Manager · San Carlos, CA</div>
+      </div>
+      <div class="exp-dates">09.2019 – 02.2023</div>
+    </div>
+    <div class="exp-metrics">
+      <span class="metric-pill green"><span class="num">12×</span> user activation</span>
+      <span class="metric-pill amber"><span class="num">5×</span> payments growth</span>
+      <span class="metric-pill cyan"><span class="num">60%</span> digital adoption</span>
+      <span class="metric-pill rose"><span class="num">$3M+</span> savings</span>
+      <span class="metric-pill accent"><span class="num">2M+</span> users unified</span>
+    </div>
+    <ul class="exp-bullets">
+      <li>Drove 12x user activation and 5x online payments growth (ACH, debit, credit card, wallet), boosting digital payment adoption from under 10% to 60% in two years.</li>
+      <li>Launched AI-driven personalized payment plans (EZ TRIPPs), driving 15% adoption and $3M+ in savings within one year.</li>
+      <li>Launched financial products marketplace with personalized offers — 15% traffic increase, 10% conversion lift.</li>
+      <li>Piloted chatbot for self-service payments, store lookup, balance inquiries — 20% adoption in first month.</li>
+      <li>Built 0-to-1 multilingual IAM system (SSO, MFA). Strategized post-merger identity unification for 2M+ users.</li>
+      <li>Achieved 99.9% ATO blocking rate with security teams, increasing sign-ups by 80%.</li>
+    </ul>
+  </div>
+
+  <div class="exp-card">
+    <div class="exp-top">
+      <div>
+        <div class="exp-company">Wells Fargo</div>
+        <div class="exp-title">Sr. Product Manager · San Francisco, CA</div>
+      </div>
+      <div class="exp-dates">12.2016 – 09.2019</div>
+    </div>
+    <div class="exp-metrics">
+      <span class="metric-pill accent"><span class="num">30+</span> APIs/SDKs</span>
+      <span class="metric-pill cyan"><span class="num">80%</span> faster doc publishing</span>
+    </div>
+    <ul class="exp-bullets">
+      <li>Led 0-to-1 open banking developer portal for third-party integrations, supporting 30+ API and SDK solutions.</li>
+      <li>Built developer tools reducing API doc publishing from two weeks to three days. Integrated with CMS.</li>
+      <li>Led PSD2 compliance for European Open Banking — SCA and eIDAS certificate implementation.</li>
+    </ul>
+  </div>
+
+  <div class="exp-card">
+    <div class="exp-top">
+      <div>
+        <div class="exp-company">CVS Caremark</div>
+        <div class="exp-title">Sr. Product/Project Manager · Scottsdale, AZ</div>
+      </div>
+      <div class="exp-dates">02.2016 – 07.2016</div>
+    </div>
+    <ul class="exp-bullets">
+      <li>Optimized user provisioning for 30+ B2B clients and integrated Salesforce to enhance sales operations.</li>
+    </ul>
+  </div>
+
+  <div class="exp-card">
+    <div class="exp-top">
+      <div>
+        <div class="exp-company">Vucos</div>
+        <div class="exp-title">Sr. Product Manager · Istanbul, Turkey</div>
+      </div>
+      <div class="exp-dates">01.2014 – 01.2016</div>
+    </div>
+    <div class="exp-metrics">
+      <span class="metric-pill green"><span class="num">5×</span> content expansion</span>
+      <span class="metric-pill amber"><span class="num">8K→75K</span> subscribers</span>
+      <span class="metric-pill cyan"><span class="num">80%</span> retention</span>
+    </div>
+    <ul class="exp-bullets">
+      <li>Scaled Vodafone's video streaming PaaS (5x content expansion) and subscription platform (8K to 75K subscribers, 80% retention).</li>
+    </ul>
+  </div>
+</div>
+
+<footer>Zulhay Alan · San Francisco Bay Area · 2026</footer>
+
+<script>
+// Animate stat counters
+function animateCounters() {
+  document.querySelectorAll('.stat-number').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    let current = 0;
+    const duration = 1500;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.round(current);
+    }, 16);
+    el.classList.add('visible');
+  });
+}
+
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { animateCounters(); statsObserver.disconnect(); }
+  });
+}, { threshold: 0.3 });
+
+statsObserver.observe(document.querySelector('.stats-banner'));
+</script>
+</body>
+</html>
