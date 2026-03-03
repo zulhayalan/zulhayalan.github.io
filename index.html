@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Zulhay Alan — Senior Product Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a28;--border:#2a2a3e;--text:#e8e8f0;--text2:#9898b0;--accent:#6366f1}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent);text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+/* Header */
+.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:24px 40px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.header-name{font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-.02em}
+.header-title{font-size:16px;color:var(--accent);font-weight:500;margin-top:4px}
+.header-links{display:flex;flex-direction:column;gap:4px;align-items:flex-end;font-size:13px;color:var(--text2)}
+.header-links a{color:var(--text2)}
+.header-links a:hover{color:var(--accent)}
+/* Stats banner */
+.stats-banner{padding:24px 40px;background:var(--bg2);border-bottom:1px solid var(--border)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.stat-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;border-top:2px solid var(--c,var(--accent));transition:transform .2s}
+.stat-card:hover{transform:translateY(-2px)}
+.stat-value{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--c,var(--accent));line-height:1}
+.stat-label{font-size:12px;color:var(--text2);margin-top:6px}
+/* Main layout */
+.main{max-width:1100px;margin:0 auto;padding:32px 40px;display:flex;flex-direction:column;gap:32px}
+/* Section header */
+.sec-header{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);margin-bottom:16px;font-family:'JetBrains Mono',monospace}
+/* Portfolio cards */
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.pf-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s,transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.pf-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--pc,var(--accent));border-radius:3px 0 0 3px;opacity:0;transition:opacity .2s}
+.pf-card:hover{border-color:var(--pc,var(--accent));transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.pf-card:hover::before{opacity:1}
+.pf-top{display:flex;align-items:center;gap:10px}
+.pf-icon{width:36px;height:36px;border-radius:8px;background:color-mix(in srgb,var(--pc,var(--accent)) 15%,transparent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pf-icon svg{width:18px;height:18px;stroke:var(--pc,var(--accent));fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pf-meta{flex:1;min-width:0}
+.pf-category{font-size:14px;font-weight:700;color:var(--text);line-height:1.2}
+.pf-company{display:inline-block;margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:color-mix(in srgb,var(--pc,var(--accent)) 12%,transparent);color:var(--pc,var(--accent));border:1px solid color-mix(in srgb,var(--pc,var(--accent)) 30%,transparent);letter-spacing:.04em}
+.pf-desc{font-size:12.5px;color:var(--text2);line-height:1.55}
+/* Edu */
+.exp-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;transition:border-color .2s}
+.exp-card:hover{border-color:var(--accent)}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.exp-co{font-size:17px;font-weight:600}
+.exp-loc{font-size:13px;color:var(--text2);font-weight:400}
+.exp-role{font-size:14px;color:var(--text2);margin-top:2px}
+.exp-dates-mono{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);white-space:nowrap}
+.pills-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:4px;font-family:'JetBrains Mono',monospace}
+.bullets{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+.bullets li{font-size:14px;color:var(--text2);padding-left:18px;position:relative}
+.bullets li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:700}
+/* Edu */
+.edu-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;align-items:stretch}
+.edu-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s,transform .2s;height:100%}
+.edu-card:hover{transform:translateY(-2px);border-color:var(--ec,var(--accent))}
+.edu-logo{width:52px;height:52px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid var(--border)}
+.edu-badge{color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;font-family:'JetBrains Mono',monospace;flex-shrink:0;display:inline-block;margin-top:5px;background:var(--ec,var(--accent))}
+.edu-school{font-size:15px;font-weight:600;line-height:1.3}
+.edu-degree{font-size:12px;color:var(--text2);margin-top:3px}
+/* Summary */
+.summary-box{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:20px 24px;font-size:15px;color:var(--text2);line-height:1.7}
+/* exp grid */
+.exp-grid{display:flex;flex-direction:column;gap:12px}
+@media(max-width:600px){.header{flex-direction:column}.header-links{align-items:flex-start}.main{padding:24px 20px}}
+
+/* Problems Solved */
+.ps-section,.tst-section{padding:32px 40px;max-width:1200px;margin:0 auto}
+.ps-grid,.tst-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:16px}
+.ps-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.ps-problem{font-weight:600;font-size:13px;color:var(--text)}
+.ps-arrow{color:var(--accent);font-size:16px;line-height:1}
+.ps-impact{font-size:13px;color:var(--text2);line-height:1.5}
+/* Testimonials */
+.tst-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px}
+.tst-quote{font-style:italic;font-size:14px;line-height:1.6;margin-bottom:12px;color:var(--text)}
+.tst-author{font-weight:600;font-size:12px;color:var(--accent)}
+.tst-title{font-size:11px;color:var(--text2)}
+
+/* Problems Solved enhanced */
+.ps-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s}
+.ps-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.ps-icon-row{display:flex;align-items:flex-start;gap:10px}
+.ps-icon{width:32px;height:32px;border-radius:7px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ps-icon svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ps-problem{font-weight:600;font-size:13px;color:var(--text);line-height:1.4}
+.ps-arrow{color:var(--accent);font-size:18px;line-height:1;margin-left:42px}
+.ps-impact{font-size:12.5px;color:var(--text2);line-height:1.55;padding-left:42px}
+/* Testimonials enhanced */
+.tst-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;transition:border-color .2s,transform .2s;position:relative}
+.tst-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tst-ql{position:absolute;top:16px;right:16px;opacity:.12}
+.tst-ql svg{width:26px;height:26px;fill:var(--accent)}
+.tst-quote{font-style:italic;font-size:13px;line-height:1.65;margin-bottom:14px;color:var(--text);padding-right:32px}
+.tst-footer{display:flex;align-items:center;gap:10px}
+.tst-avatar{width:34px;height:34px;border-radius:50%;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tst-avatar svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tst-author{font-weight:600;font-size:12px;color:var(--accent)}
+.tst-title{font-size:11px;color:var(--text2)}
+
+/* PS impact labels */
+.ps-labels{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;padding-left:42px}
+.ps-label{font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace;padding:2px 8px;border-radius:4px;letter-spacing:.04em;background:rgba(99,102,241,.1);color:var(--accent);border:1px solid rgba(99,102,241,.25)}
+
+/* Strengths strip */
+.strengths-section{padding:0 40px 32px;max-width:1200px;margin:0 auto}
+.strengths-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.strength-chip{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;transition:border-color .2s,transform .2s}
+.strength-chip:hover{border-color:var(--accent);transform:translateY(-2px)}
+.strength-chip svg{width:15px;height:15px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.strength-label{font-size:12.5px;font-weight:600;color:var(--text);white-space:nowrap}
+.strength-source{font-size:10px;color:var(--text2);margin-left:2px;font-family:'JetBrains Mono',monospace}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="header-name">Zulhay Alan</div>
+    <div class="header-title">Product Leader & Builder</div>
+  </div>
+  <div class="header-links">
+    <a href="https://www.linkedin.com/in/zulhayalan/" target="_blank">linkedin.com/in/zulhayalan</a>
+    <span>San Francisco Bay Area</span>
+  </div>
+</div>
+
+
+<div class="stats-banner">
+  <div class="stats-grid">
+    <div class="stat-card" style="--c:#22c55e">
+      <div class="stat-value">12×</div>
+      <div class="stat-label">User Activation</div>
+    </div>
+  
+    <div class="stat-card" style="--c:#f59e0b">
+      <div class="stat-value">60%</div>
+      <div class="stat-label">Digital Payment Adoption</div>
+    </div>
+  
+    <div class="stat-card" style="--c:#06b6d4">
+      <div class="stat-value">80%</div>
+      <div class="stat-label">Faster Workflow Launch</div>
+    </div>
+  
+    <div class="stat-card" style="--c:#a855f7">
+      <div class="stat-value">30+</div>
+      <div class="stat-label">APIs/SDKs Shipped</div>
+    </div>
+  
+    <div class="stat-card" style="--c:#f43f5e">
+      <div class="stat-value">$3M+</div>
+      <div class="stat-label">Customer Savings</div>
+    </div>
+  
+    <div class="stat-card" style="--c:#22c55e">
+      <div class="stat-value">1.05M</div>
+      <div class="stat-label">MAU</div>
+    </div>
+  
+    <div class="stat-card" style="--c:#f59e0b">
+      <div class="stat-value">99.9%</div>
+      <div class="stat-label">ATO Blocking Rate</div>
+    </div>
+  
+    <div class="stat-card" style="--c:#06b6d4">
+      <div class="stat-value">30%</div>
+      <div class="stat-label">Enterprise Activation</div>
+    </div>
+  
+    <div class="stat-card" style="--c:#22c55e">
+      <div class="stat-value">2M</div>
+      <div class="stat-label">Users Unified</div>
+    </div>
+  
+    <div class="stat-card" style="--c:#22c55e">
+      <div class="stat-value">15%</div>
+      <div class="stat-label">Channel Expansion</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div>
+    <div class="sec-header">About</div>
+    <div class="summary-box">Product leader with 10+ years of experience building 0-1 platforms across payments, fintech, and AI. Known for turning complex technology into experiences people love, owning the full product lifecycle from strategy and positioning through execution, and navigating regulatory complexity across global markets. Equally fluent in customer intuition, technical depth, and executive alignment. Calm under pressure, quick to create momentum, and trusted to turn ambiguous product areas into defensible strategy and measurable outcomes.</div>
+  </div>
+
+  
+  <div>
+    <div class="sec-header">Portfolio</div>
+    <div class="portfolio-grid">
+      <div class="pf-card" style="--pc:#06b6d4">
+        <div class="pf-top"><div class="pf-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="pf-meta"><div class="pf-category">AI / Agentic</div><span class="pf-company">Ushur</span></div></div>
+        <div class="pf-desc">Agentic workflows and AI dashboards for healthcare and insurance. Built before it was a trend.</div>
+      </div>
+      <div class="pf-card" style="--pc:#22c55e">
+        <div class="pf-top"><div class="pf-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div class="pf-meta"><div class="pf-category">Payments</div><span class="pf-company">Oportun</span></div></div>
+        <div class="pf-desc">Full payments stack built 0-1. Personal loan, credit card, and embedded finance with ACH, debit, and PCI-compliant APIs.</div>
+      </div>
+      <div class="pf-card" style="--pc:#f59e0b">
+        <div class="pf-top"><div class="pf-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg></div>
+          <div class="pf-meta"><div class="pf-category">Customer Onboarding</div><span class="pf-company">Oportun</span></div></div>
+        <div class="pf-desc">Eligibility, KYC, account creation, and preference capture. Zero to active customer.</div>
+      </div>
+      <div class="pf-card" style="--pc:#a855f7">
+        <div class="pf-top"><div class="pf-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/><path d="M9 7h6M9 11h4"/></svg></div>
+          <div class="pf-meta"><div class="pf-category">Fintech Platform</div><span class="pf-company">Oportun</span></div></div>
+        <div class="pf-desc">Login-free servicing via SMS and email. Financial access without an app or password.</div>
+      </div>
+      <div class="pf-card" style="--pc:#f43f5e">
+        <div class="pf-top"><div class="pf-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+          <div class="pf-meta"><div class="pf-category">IAM &amp; Auth</div><span class="pf-company">Oportun</span></div></div>
+        <div class="pf-desc">SSO, MFA, OAuth built 0-1. Unified two apps into one identity after acquisition.</div>
+      </div>
+      <div class="pf-card" style="--pc:#6366f1">
+        <div class="pf-top"><div class="pf-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="pf-meta"><div class="pf-category">Open Banking</div><span class="pf-company">Wells Fargo</span></div></div>
+        <div class="pf-desc">Open banking developer portal with 30+ APIs and SDKs. PSD2-compliant across EU markets.</div>
+      </div>
+      <div class="pf-card" style="--pc:#ec4899">
+        <div class="pf-top"><div class="pf-icon"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+          <div class="pf-meta"><div class="pf-category">Media &amp; Entertainment</div><span class="pf-company">Vucos / Vodafone</span></div></div>
+        <div class="pf-desc">Streaming PaaS built from zero for Vodafone. SVOD, TVOD, 5 content providers, one platform.</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="sec-header">Education</div>
+    <div class="edu-cards">
+    <a href="https://www.linkedin.com/school/san-diego-state-university/" target="_blank" style="text-decoration:none;color:inherit">
+    <div class="edu-card" style="--ec:#A6192E">
+      <div class="edu-logo">
+        <img src="data:image/png;base64,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" alt="SDSU" style="width:52px;height:52px;object-fit:cover;border-radius:8px;display:block"/>
+      </div>
+      <div>
+        <div class="edu-school">San Diego State University</div>
+        <div class="edu-degree">Master of Business Administration</div>
+        <span class="edu-badge">MBA</span>
+      </div>
+    </div>
+    </a>
+    <a href="https://www.linkedin.com/school/itu1773/" target="_blank" style="text-decoration:none;color:inherit">
+    <div class="edu-card" style="--ec:#1a3a6b">
+      <div class="edu-logo" style="background:#fff">
+        <img src="data:image/png;base64,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" alt="ITU" style="width:48px;height:48px;object-fit:contain;display:block;padding:2px"/>
+      </div>
+      <div>
+        <div class="edu-school">Istanbul Technical University</div>
+        <div class="edu-degree">Bachelor of Electrical &amp; Electronics Engineering</div>
+        <span class="edu-badge">B.S. EE</span>
+      </div>
+    </div>
+    </a>
+  </div>
+  </div>
+
+  <div>
+    <div class="sec-header">Experience</div>
+    <div class="exp-grid">
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-co">Ushur <span class="exp-loc">Santa Clara, CA</span></div>
+          <div class="exp-role">Senior Product Manager</div>
+        </div>
+        <div class="exp-dates-mono">05.2025 – 01.2026</div>
+      </div>
+      <div class="pills-row"><span class="pill" style="background:#06b6d422;color:#06b6d4;border:1px solid #06b6d444">80% Faster Workflow Launch</span><span class="pill" style="background:#06b6d422;color:#06b6d4;border:1px solid #06b6d444">30% Enterprise Activation</span></div>
+      <ul class="bullets">
+        <li>Defined strategy, positioning, and roadmap for Invisible App (B2B2C deterministic and agentic workflow automation) and Ushur Hub (B2B) across healthcare, insurance, and financial services; secured CEO and CTO sponsorship and led execution.</li><li>Shipped Member 360, an agentic AI-powered healthcare dashboard that normalizes disparate client data into role-based operational views with human-in-the-loop editing; drove pipeline expansion in commercial negotiations.</li><li>Launched client workflow branding automation and cut client workflow deployment time 80% across 30+ multi-tenant clients.</li><li>Built enterprise SSO integration between client ecosystem and Ushur Hub. Launched client-facing APIs for just-in-time user provisioning which increased Hub user activation 30% and created a scalable onboarding model.</li><li>Ran continuous customer discovery; insights directly shaped roadmap including Hub Builder experience and agentic HRA survey generation and workflow creation.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-co">Freelance <span class="exp-loc">San Francisco Bay Area</span></div>
+          <div class="exp-role">Senior Product Manager</div>
+        </div>
+        <div class="exp-dates-mono">03.2023 – 05.2025</div>
+      </div>
+      
+      <ul class="bullets">
+        <li>Pivoted deliberately into AI and partnered with Maxitech on Entrapeer, an agentic AI PaaS for market research, while completing Stanford coursework in AI business applications and ethics and building Python skills.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-co">Oportun <span class="exp-loc">San Carlos, CA</span></div>
+          <div class="exp-role">Senior Product Manager</div>
+        </div>
+        <div class="exp-dates-mono">09.2019 – 02.2023</div>
+      </div>
+      <div class="pills-row"><span class="pill" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">12× User Activation</span><span class="pill" style="background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b44">60% Digital Payment Adoption</span><span class="pill" style="background:#f43f5e22;color:#f43f5e;border:1px solid #f43f5e44">$3M+ Customer Savings</span><span class="pill" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">1.05M MAU</span><span class="pill" style="background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b44">99.9% ATO Blocking Rate</span><span class="pill" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">2M Users Unified</span></div>
+      <ul class="bullets">
+        <li>Built consumer financial servicing app 0-1 (PL, CC, Embedded Finance) with full payments stack; ACH, debit, credit card. Integrated Fiserv, built CC APIs and PCI-compliant service. Scaled to 1.05M MAU and 1.2M monthly transactions; drove 12x activation and 60% digital adoption in 2 years.</li><li>Built EZ Services platform 0-1, a login-free financial servicing via SMS/email on shared infrastructure. Shipped EZ Pay and EZ TRIPPs. EZ TRIPPs drove 15% adoption and $3M+ in customer savings in year one.</li><li>Built IAM platform 0-1 (SSO, MFA, OAuth); unified identity, onboarding, and servicing across Digit’s personal finance app and Oportun’s servicing app. Oversaw customer onboarding, financial products/services, and access continuity for 2M+ users.</li><li>Built NLP-powered SMS servicing bot 0-1; payments, authentication, balance inquiry, and store locator intents. Achieved 20% adoption in the first month.</li><li>Achieved 99.9% ATO blocking rate by integrating Castle Adaptive MFA and online risk management service and enabled an 80% lift in new account sign-ups.</li><li>Launched financial products marketplace 0-1; 15% traffic increase to the consumer financial servicing platform and 10% conversion lift in originations.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-co">Wells Fargo <span class="exp-loc">San Francisco, CA</span></div>
+          <div class="exp-role">Senior Product Manager</div>
+        </div>
+        <div class="exp-dates-mono">12.2016 – 09.2019</div>
+      </div>
+      <div class="pills-row"><span class="pill" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">30+ APIs/SDKs Shipped</span></div>
+      <ul class="bullets">
+        <li>Built open banking developer portal 0-1 and onboarded partners onto 30+ APIs and SDKs; cut API spec publishing time from two weeks to three days with innovative Swagger approach.</li><li>Led PSD2 compliance for Wells Fargo Europe (GDPR, SCA, TPP, API standardization and versioning) and implemented eIDAS certificates.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-co">CVS Caremark <span class="exp-loc">Scottsdale, AZ</span></div>
+          <div class="exp-role">Senior Product / Project Manager</div>
+        </div>
+        <div class="exp-dates-mono">02.2016 – 07.2016</div>
+      </div>
+      <div class="pills-row"><span class="pill" style="background:#06b6d422;color:#06b6d4;border:1px solid #06b6d444">30+ Enterprise Clients</span></div>
+      <ul class="bullets">
+        <li>Optimized user provisioning for 30+ enterprise clients; integrated Salesforce knowledge base to improve sales operations efficiency.</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-co">Vucos <span class="exp-loc">Istanbul, Turkey</span></div>
+          <div class="exp-role">Senior Product Manager</div>
+        </div>
+        <div class="exp-dates-mono">01.2014 – 01.2016</div>
+      </div>
+      <div class="pills-row"><span class="pill" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">10x Subscriber Growth</span><span class="pill" style="background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b44">80% Retention</span></div>
+      <ul class="bullets">
+        <li>Built 0-1 video streaming PaaS for Vodafone supporting SVOD and TVOD and onboarded 5 content providers, drove 10x subscriber growth to 75K with 80% retention.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="ps-section">
+    <div class="sec-header">Problems Solved</div>
+    <div class="ps-grid">
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="ps-problem">A B2B2C workflow automation product had lost executive sponsorship, positioning, and momentum despite real market demand.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Rebuilt positioning from first principles, secured CEO and CTO sponsorship, and reopened commercial expansion negotiations.</div>
+        <div class="ps-labels"><span class="ps-label">Stakeholder Management</span><span class="ps-label">Go-to-Market Strategy</span><span class="ps-label">Executive Communication</span></div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="ps-problem">Enterprise clients had to log into Ushur Hub separately from their own portal, breaking the user journey and making Hub feel like a foreign tool rather than part of their ecosystem.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Built enterprise SSO between client portals and Ushur Hub, enabling frictionless single-identity access. Hub users now experience one brand, one login, one ecosystem, driving 30% user activation growth.</div>
+        <div class="ps-labels"><span class="ps-label">Single Sign-On</span><span class="ps-label">Enterprise Integration</span><span class="ps-label">User Journey Continuity</span></div>
+      </div>
+
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="9" cy="10" r="1.5"/><circle cx="15" cy="10" r="1.5"/></svg></div>
+          <div class="ps-problem">Healthcare clients managed member operations across disconnected systems with no unified view or way to act on their own data.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Shipped Member 360, an AI dashboard normalizing disparate client data into role-based views, and drove pipeline expansion in active deals.</div>
+        <div class="ps-labels"><span class="ps-label">Data Product</span><span class="ps-label">AI/ML Integration</span><span class="ps-label">Enterprise UX</span></div>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div class="ps-problem">Deploying branded workflows across 30+ enterprise clients required heavy manual configuration per tenant, capping onboarding speed.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Built workflow branding automation that cut deployment time by 80% across all multi-tenant clients.</div>
+        <div class="ps-labels"><span class="ps-label">Process Automation</span><span class="ps-label">Multi-tenant SaaS</span><span class="ps-label">Operational Efficiency</span></div>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div class="ps-problem">A consumer lender with 1.7M customers had no digital servicing channel. Every payment and account action required a branch visit or call.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Built the full servicing platform 0-1. Scaled to 1.05M MAU, 1.2M monthly transactions, 12x activation, and 60% digital adoption in two years.</div>
+        <div class="ps-labels"><span class="ps-label">0-to-1 Product</span><span class="ps-label">Digital Transformation</span><span class="ps-label">User Activation</span></div>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/><path d="M9 7h6M9 11h4"/></svg></div>
+          <div class="ps-problem">Customers without app access had no self-service option. Every interaction required a call, driving volume and leaving borrowers underserved.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Built EZ Services 0-1, a login-free servicing platform via SMS and email. Drove 15% adoption and $3M+ in customer savings in year one.</div>
+        <div class="ps-labels"><span class="ps-label">Friction Reduction</span><span class="ps-label">Omnichannel</span><span class="ps-label">Self-Service</span></div>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="ps-problem">Post-acquisition, 2M+ customers held accounts across two separate apps with no unified identity or servicing layer.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Built the IAM platform 0-1 with SSO, MFA, and OAuth, unifying identity and servicing across both apps for 2M+ users.</div>
+        <div class="ps-labels"><span class="ps-label">Mergers &amp; Acquisitions Integration</span><span class="ps-label">Identity &amp; Access Management</span><span class="ps-label">Customer Experience</span></div>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+          <div class="ps-problem">Fraud was a dual constraint: ATO attacks threatened existing customers while over-aggressive checks blocked legitimate new signups.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Integrated adaptive MFA and risk management: 99.9% ATO blocking rate and 80% lift in new account signups.</div>
+        <div class="ps-labels"><span class="ps-label">Risk Management</span><span class="ps-label">Conversion Optimization</span><span class="ps-label">Growth &amp; Acquisition</span></div>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="ps-problem">Publishing a single API spec took two weeks: an unsustainable pace with 30+ APIs to ship and a PSD2 compliance deadline in Europe.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Built the developer portal 0-1, onboarded partners onto 30+ APIs and SDKs, and cut publishing time from two weeks to three days.</div>
+        <div class="ps-labels"><span class="ps-label">Developer Experience</span><span class="ps-label">API Platform</span><span class="ps-label">Regulatory Compliance</span></div>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+          <div class="ps-problem">Vodafone needed a video streaming platform built from zero: no infrastructure, no content integrations, SVOD and TVOD launching simultaneously.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Built the streaming PaaS 0-1, onboarded 5 content providers, and drove 10x subscriber growth to 75K with 80% retention.</div>
+        <div class="ps-labels"><span class="ps-label">0-to-1 Product</span><span class="ps-label">Growth &amp; Retention</span><span class="ps-label">Platform Scalability</span></div>
+      </div>
+
+
+      <div class="ps-card">
+        <div class="ps-icon-row">
+          <div class="ps-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg></div>
+          <div class="ps-problem">Products built 0-1 had no accessibility baseline. High and critical ADA violations were present across core user flows from day one.</div>
+        </div>
+        <div class="ps-arrow">&#8594;</div>
+        <div class="ps-impact">Led ADA compliance programs across multiple products, resolved all high and critical violations, and reached 95% WCAG compliance.</div>
+        <div class="ps-labels"><span class="ps-label">ADA Compliance</span><span class="ps-label">WCAG Accessibility</span><span class="ps-label">Inclusive Design</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="strengths-section">
+    <div class="sec-header">How Colleagues Describe Working With Me</div>
+    <div class="strengths-grid">
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span class="strength-label">Calm Under Pressure</span>
+        <span class="strength-source">/ CEO</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span class="strength-label">Technical Depth</span>
+        <span class="strength-source">/ AI &amp; Data Executive</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span class="strength-label">Analytical Rigor</span>
+        <span class="strength-source">/ Executive Director</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span class="strength-label">Cross-functional Alignment</span>
+        <span class="strength-source">/ Engineering Manager</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span class="strength-label">Strategic Maturity</span>
+        <span class="strength-source">/ CEO</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="strength-label">Execution Discipline</span>
+        <span class="strength-source">/ Director of Operations</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span class="strength-label">Clarity in Complexity</span>
+        <span class="strength-source">/ Senior CS Leader</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+        <span class="strength-label">Organizational Trust</span>
+        <span class="strength-source">/ Director, Healthcare</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        <span class="strength-label">Vision to Delivery</span>
+        <span class="strength-source">/ VP of Product</span>
+      </div>
+
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span class="strength-label">Feedback Receptivity</span>
+        <span class="strength-source">/ CEO</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span class="strength-label">Precision & Creativity</span>
+        <span class="strength-source">/ Director, Healthcare</span>
+      </div>
+
+      <div class="strength-chip">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="strength-label">Stakeholder Empathy</span>
+        <span class="strength-source">/ Director, Healthcare</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tst-section">
+    <div class="sec-header">What Colleagues Say</div>
+    <div class="tst-grid">
+      <div class="tst-card">
+        <div class="tst-ql"><svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
+        <div class="tst-quote">&#8220;She stepped into a product that had lost direction and stakeholder confidence. Rather than patching the roadmap, she rebuilt the strategy from the ground up, earned C-level buy-in, and shifted company priorities. What was once deprioritized became a product area with renewed executive momentum and real expansion opportunity.&#8221;</div>
+        <div class="tst-footer">
+          <div class="tst-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="tst-author">VP of Product</div><div class="tst-title">AI &amp; Enterprise SaaS Platform</div></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="tst-ql"><svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
+        <div class="tst-quote">&#8220;As the strategic lead for our SaaS platform, she defined the product direction and oversaw execution end-to-end. Her ability to align engineering, business urgency, and customer value resulted in measurable outcomes, including a 30% increase in enterprise adoption within six months.&#8221;</div>
+        <div class="tst-footer">
+          <div class="tst-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="tst-author">Engineering Manager</div><div class="tst-title">Enterprise SaaS</div></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="tst-ql"><svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
+        <div class="tst-quote">&#8220;In a complex AI environment filled with conflicting requirements, she introduced bold product vision and aligned teams around a clear path forward. Her ability to connect technical depth with strategic positioning brought clarity, excitement, and forward momentum.&#8221;</div>
+        <div class="tst-footer">
+          <div class="tst-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="tst-author">AI &amp; Data Executive</div><div class="tst-title">Generative AI &amp; LLM Platforms</div></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="tst-ql"><svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
+        <div class="tst-quote">&#8220;She demonstrates exceptional technical expertise paired with strategic maturity. Thoughtful in reflection and disciplined in execution, she absorbs feedback quickly and refines her approach immediately. Her professionalism and subject matter depth are top-tier.&#8221;</div>
+        <div class="tst-footer">
+          <div class="tst-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="tst-author">CEO</div><div class="tst-title">Leadership &amp; Career Advisory Firm</div></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="tst-ql"><svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
+        <div class="tst-quote">&#8220;She led omnichannel servicing initiatives with strong domain understanding and analytical rigor. Her work unified fragmented financial experiences across platforms, bringing cohesion to the customer journey and elevating digital adoption.&#8221;</div>
+        <div class="tst-footer">
+          <div class="tst-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="tst-author">Product Leader</div><div class="tst-title">Consumer Financial Services</div></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="tst-ql"><svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
+        <div class="tst-quote">&#8220;She has a rare ability to connect product vision to delivery. Strategic in thinking and structured in execution, she brings clarity to complexity and consistently drives meaningful impact across cross-functional teams.&#8221;</div>
+        <div class="tst-footer">
+          <div class="tst-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="tst-author">Senior Customer Success Leader</div><div class="tst-title">Enterprise Solutions</div></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="tst-ql"><svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
+        <div class="tst-quote">&#8220;She approaches work with precision, creativity, and a deep commitment to process excellence. Her ability to understand stakeholder goals and map them into structured execution builds strong organizational trust.&#8221;</div>
+        <div class="tst-footer">
+          <div class="tst-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="tst-author">Director</div><div class="tst-title">Enterprise Healthcare Organization</div></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="tst-ql"><svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
+        <div class="tst-quote">&#8220;Her analytical rigor is unmatched. When she raises an issue, it is thoroughly researched and thoughtfully articulated. Leadership trusts her insights because they are grounded in depth, accuracy, and disciplined communication.&#8221;</div>
+        <div class="tst-footer">
+          <div class="tst-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="tst-author">Executive Director</div><div class="tst-title">Enterprise Consulting &amp; Systems Transformation</div></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="tst-ql"><svg viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
+        <div class="tst-quote">&#8220;Detail-driven and conscientious, she builds strong relationships across stakeholders and consistently delivers work that clients trust. Her professionalism and execution discipline make her a reliable leader in complex environments.&#8221;</div>
+        <div class="tst-footer">
+          <div class="tst-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="tst-author">Director of Operations</div><div class="tst-title">Global Professional Services</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+"
